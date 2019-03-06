@@ -18,9 +18,9 @@ describe('Gilded Rose', function () {
             const item = items[0];
             
             // then
-            expect(expectedName).to.equal(item.name);
-            expect(expectedSellIn).to.equal(item.sellIn);
-            expect(expectedQuality).to.equal(item.quality)
+            expect(item.name).to.equal(expectedName); 
+            expect(item.sellIn).to.equal(expectedSellIn); 
+            expect(item.quality).to.equal(expectedQuality); 
         });
         it('Once sell by date is passed, quality degrades twice as fast', () => {
             // given
@@ -28,6 +28,24 @@ describe('Gilded Rose', function () {
             const initialQuality = 25;
             const expectedSellIn = -1;
             const expectedQuality = 23;
+            const expectedName = 'Normal Item';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
+            
+            // then
+            expect(item.name).to.equal(expectedName);
+            expect(item.sellIn).to.equal(expectedSellIn);
+            expect(item.quality).to.equal(expectedQuality);
+        });
+        it('The Quality of an item is never negative', () => {
+            // given
+            const initialSellIn = 3;
+            const initialQuality = 0;
+            const expectedSellIn = 2;
+            const expectedQuality = 0;
             const expectedName = 'Normal Item';
             const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
             
@@ -56,9 +74,28 @@ describe('Gilded Rose', function () {
             const item = items[0];
             
             // then
+            expect(item.name).to.equal(expectedName);
+            expect(item.sellIn).to.equal(expectedSellIn);
+            expect(item.quality > initialQuality).to.equal(true);
+        });
+
+        it('the quality never grows past 50', () => {
+            // given
+            const initialSellIn = 3;
+            const initialQuality = 50;
+            const expectedSellIn = 2;
+            const expectedQuality = 50;
+            const expectedName = 'Aged Brie';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
+            
+            // then
             expect(expectedName).to.equal(item.name);
             expect(expectedSellIn).to.equal(item.sellIn);
-            expect(true).to.equal(item.quality > initialQuality);
+            expect(expectedQuality).to.equal(item.quality);
         });
     });
 
@@ -99,16 +136,93 @@ describe('Gilded Rose', function () {
             expect(expectedSellIn).to.equal(item.sellIn);
             expect(true).to.equal(item.quality > initialQuality);
         });
+
+        it('increases in quality by twice as much as its sellIn value is less than 10', () => {
+            // given
+            const initialSellIn = 9;
+            const initialQuality = 25;
+            const expectedSellIn = 8;
+            const expectedQuality = 27;
+            const expectedName = 'Backstage passes to a TAFKAL80ETC concert';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
+            
+            // then
+            expect(expectedName).to.equal(item.name);
+            expect(expectedSellIn).to.equal(item.sellIn);
+            expect(expectedQuality).to.equal(item.quality);
+        });
+
+        it('increases in quality by thrice as much as its sellIn value is less than 3', () => {
+            // given
+            const initialSellIn = 2;
+            const initialQuality = 25;
+            const expectedSellIn = 1;
+            const expectedQuality = 28;
+            const expectedName = 'Backstage passes to a TAFKAL80ETC concert';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
+            
+            // then
+            expect(expectedName).to.equal(item.name);
+            expect(expectedSellIn).to.equal(item.sellIn);
+            expect(expectedQuality).to.equal(item.quality);
+        });
+
+        it('Quality drops to 0 after the concert', () => {
+            // given
+            const initialSellIn = 0;
+            const initialQuality = 25;
+            const expectedSellIn = -1;
+            const expectedQuality = 0;
+            const expectedName = 'Backstage passes to a TAFKAL80ETC concert';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
+            
+            // then
+            expect(expectedName).to.equal(item.name);
+            expect(expectedSellIn).to.equal(item.sellIn);
+            expect(expectedQuality).to.equal(item.quality);
+        });
+
+
+        it('the quality never grows past 50', () => {
+            // given
+            const initialSellIn = 3;
+            const initialQuality = 50;
+            const expectedSellIn = 2;
+            const expectedQuality = 50;
+            const expectedName = 'Backstage passes to a TAFKAL80ETC concert';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
+            
+            // then
+            expect(expectedName).to.equal(item.name);
+            expect(expectedSellIn).to.equal(item.sellIn);
+            expect(expectedQuality).to.equal(item.quality);
+        });
     });
 
     describe('Conjured', function() {
-        // it('inital quality should decrease, and expected quality should increase', () => {
+        // it('At the end of each day our system lowers sellIn by 1 and quality by 2', () => {
         //     // given
         //     const initialSellIn = 3;
         //     const initialQuality = 25;
         //     const expectedSellIn = 2;
-        //     const expectedQuality = 24;
-        //     const expectedName = 'Normal Item';
+        //     const expectedQuality = 23;
+        //     const expectedName = 'Conjured Item';
         //     const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
             
         //     // when
@@ -120,6 +234,42 @@ describe('Gilded Rose', function () {
         //     expect(expectedSellIn).to.equal(item.sellIn);
         //     expect(expectedQuality).to.equal(item.quality)
         // });
+        // it('Once sell by date is passed, quality degrades twice as fast', () => {
+        //     // given
+        //     const initialSellIn = 0;
+        //     const initialQuality = 25;
+        //     const expectedSellIn = -1;
+        //     const expectedQuality = 21;
+        //     const expectedName = 'Conjured Item';
+        //     const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            
+        //     // when
+        //     const items = gildedRose.updateQuality();
+        //     const item = items[0];
+            
+        //     // then
+        //     expect(expectedName).to.equal(item.name);
+        //     expect(expectedSellIn).to.equal(item.sellIn);
+        //     expect(expectedQuality).to.equal(item.quality)
+        // });
+        it('The Quality of an item is never negative', () => {
+            // given
+            const initialSellIn = 3;
+            const initialQuality = 0;
+            const expectedSellIn = 2;
+            const expectedQuality = 0;
+            const expectedName = 'Conjured Item';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
+            
+            // then
+            expect(expectedName).to.equal(item.name);
+            expect(expectedSellIn).to.equal(item.sellIn);
+            expect(expectedQuality).to.equal(item.quality)
+        });
     });
 
 });
