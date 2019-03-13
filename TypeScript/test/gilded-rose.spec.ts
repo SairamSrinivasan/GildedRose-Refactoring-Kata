@@ -1,9 +1,17 @@
 import { expect } from 'chai';
-import { Item, GildedRose } from '../app/gilded-rose';
+import { GildedRose } from '../app/gilded-rose';
+import { 
+    Item,
+    LegendaryItem,
+    AgedBrie,
+    BackstagePass,
+    ConjuredItem,
+    StandardItem
+ } from '../app/models';
 
 describe('Gilded Rose', function () {
 
-    describe('Normal Item', function() {
+    describe.only('Normal Item', function() {
         it('At the end of each day our system lowers both sellIn and quality by 1', () => {
             // given
             const initialSellIn = 3;
@@ -11,7 +19,7 @@ describe('Gilded Rose', function () {
             const expectedSellIn = 2;
             const expectedQuality = 24;
             const expectedName = 'Normal Item';
-            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            const gildedRose = new GildedRose([ new StandardItem(expectedName, initialSellIn, initialQuality) ]);
             
             // when
             const items = gildedRose.updateQuality();
@@ -29,7 +37,7 @@ describe('Gilded Rose', function () {
             const expectedSellIn = -1;
             const expectedQuality = 23;
             const expectedName = 'Normal Item';
-            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            const gildedRose = new GildedRose([ new StandardItem(expectedName, initialSellIn, initialQuality) ]);
             
             // when
             const items = gildedRose.updateQuality();
@@ -47,7 +55,7 @@ describe('Gilded Rose', function () {
             const expectedSellIn = 2;
             const expectedQuality = 0;
             const expectedName = 'Normal Item';
-            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            const gildedRose = new GildedRose([ new StandardItem(expectedName, initialSellIn, initialQuality) ]);
             
             // when
             const items = gildedRose.updateQuality();
@@ -105,7 +113,7 @@ describe('Gilded Rose', function () {
         const expectedSellIn = 100;
         const expectedQuality = 80;
         const expectedName = 'Sulfuras, Hand of Ragnaros';
-        const gildedRose = new GildedRose([ new Item(expectedName, expectedSellIn, expectedQuality) ]);
+        const gildedRose = new GildedRose([ new LegendaryItem(expectedName, expectedSellIn, expectedQuality) ]);
         
         // when
         const items = gildedRose.updateQuality();

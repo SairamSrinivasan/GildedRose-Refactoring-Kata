@@ -1,18 +1,9 @@
-export abstract class Item {
-    name: string;
-    sellIn: number;
-    quality: number;
-
-    constructor(name, sellIn, quality) {
-        this.name = name;
-        this.sellIn = sellIn;
-        this.quality = quality;
-    }
-}
+import {Item} from './models/item';
+import { UpdatableItem } from './models/UpdatableItem';
 
 export class GildedRose {
-    items: Array<Item>;
-    constructor(items = [] as Array<Item>) {
+    items: Array<UpdatableItem>;
+    constructor(items = [] as Array<UpdatableItem>) {
         this.items = items;
     }
 
@@ -29,7 +20,8 @@ export class GildedRose {
 
             switch(currentItemName) {
                 case 'Sulfuras, Hand of Ragnaros':
-                    continue;
+                    item.updateItem();
+                    break;
                 case 'Aged Brie':
                     if(currentItemQuality<50){
                         item.quality ++;
