@@ -216,42 +216,42 @@ describe('Gilded Rose', function () {
     });
 
     describe('Conjured', function() {
-        // it('At the end of each day our system lowers sellIn by 1 and quality by 2', () => {
-        //     // given
-        //     const initialSellIn = 3;
-        //     const initialQuality = 25;
-        //     const expectedSellIn = 2;
-        //     const expectedQuality = 23;
-        //     const expectedName = 'Conjured Item';
-        //     const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+        it('At the end of each day our system lowers sellIn by 1 and quality by 2', () => {
+            // given
+            const initialSellIn = 3;
+            const initialQuality = 25;
+            const expectedSellIn = 2;
+            const expectedQuality = 23;
+            const expectedName = 'Conjured Item';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
             
-        //     // when
-        //     const items = gildedRose.updateQuality();
-        //     const item = items[0];
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
             
-        //     // then
-        //     expect(expectedName).to.equal(item.name);
-        //     expect(expectedSellIn).to.equal(item.sellIn);
-        //     expect(expectedQuality).to.equal(item.quality)
-        // });
-        // it('Once sell by date is passed, quality degrades twice as fast', () => {
-        //     // given
-        //     const initialSellIn = 0;
-        //     const initialQuality = 25;
-        //     const expectedSellIn = -1;
-        //     const expectedQuality = 21;
-        //     const expectedName = 'Conjured Item';
-        //     const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
+            // then
+            expect(expectedName).to.equal(item.name);
+            expect(expectedSellIn).to.equal(item.sellIn);
+            expect(expectedQuality).to.equal(item.quality);
+        });
+        it('Once sell by date is passed, quality degrades twice as fast', () => {
+            // given
+            const initialSellIn = 0;
+            const initialQuality = 25;
+            const expectedSellIn = -1;
+            const expectedQuality = 21;
+            const expectedName = 'Conjured Item';
+            const gildedRose = new GildedRose([ new Item(expectedName, initialSellIn, initialQuality) ]);
             
-        //     // when
-        //     const items = gildedRose.updateQuality();
-        //     const item = items[0];
+            // when
+            const items = gildedRose.updateQuality();
+            const item = items[0];
             
-        //     // then
-        //     expect(expectedName).to.equal(item.name);
-        //     expect(expectedSellIn).to.equal(item.sellIn);
-        //     expect(expectedQuality).to.equal(item.quality)
-        // });
+            // then
+            expect(expectedName).to.equal(item.name);
+            expect(expectedSellIn).to.equal(item.sellIn);
+            expect(expectedQuality).to.equal(item.quality)
+        });
         it('The Quality of an item is never negative', () => {
             // given
             const initialSellIn = 3;
